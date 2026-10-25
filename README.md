@@ -62,6 +62,12 @@ On **440 later-window native-FPS frames / 4,179 publisher-labeled appearances**,
 | Precision | **85.38%** | 84.68% |
 | Matched / unmatched / missed boxes | 3,143 / **538** / 1,036 | **3,146** / 569 / **1,033** |
 
+#### Precision–recall curve
+
+![Precision–recall curves for the retained and rejected tracking profiles on labeled MOT17 and UA-DETRAC later windows](docs/metrics/precision-recall/curve.png)
+
+This curve sweeps the confidence cutoff on **saved tracked boxes** from 0.10 to 0.95 and rescores the same 440 frames using the existing TrackEval matching and ignore rules. Trackers stay frozen; this is not a detector AP curve or a new threshold recommendation. Large dots mark the published 0.10 operating point. Results use known historical cameras rather than independent validation. [Raw points and method](docs/metrics/precision-recall/points.json) · [CSV](docs/metrics/precision-recall/points.csv) · [SVG](docs/metrics/precision-recall/curve.svg).
+
 Only three extra matches cost 31 extra unmatched predictions. The user retained person track initiation 0.55 and 30-frame retention, rejecting initiation 0.50 with 2.4-second retention. Class cutoffs remain car 0.50, truck 0.40, bus 0.55 and person/motorcycle 0.10. General application defaults were never promoted to the rejected experiment, and no detector weights changed. These box metrics are separate from CAVIAR crossing scores; earlier source windows/cameras were already used in development.
 
 [Review the rollback rationale, actual output comparisons, and unchanged source reports](docs/metrics/confidence-study/README.md).
