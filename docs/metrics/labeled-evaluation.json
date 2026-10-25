@@ -1,0 +1,325 @@
+{
+  "source_file": "outputs/metal-accuracy/results.json",
+  "source_sha256": "968ce41c58889b4566ed6b8b8241ac445984f5679ffbdfa5a30ac3538af14793",
+  "scope": "12 complete existing wide-view retail videos; known-data tuning/regression check, not a new independent holdout. Detector is still YOLO11s/640, one pass. All final replay and sustained videos use Metal.",
+  "before_metal": {
+    "timely_crossings": {
+      "matched": 16,
+      "extra": 15,
+      "missed": 21,
+      "precision": 0.5161290322580645,
+      "recall": 0.43243243243243246,
+      "f1": 0.47058823529411764,
+      "directions": {
+        "entry": {
+          "reference": 19,
+          "model": 20,
+          "sum_absolute_clip_error": 1
+        },
+        "exit": {
+          "reference": 18,
+          "model": 11,
+          "sum_absolute_clip_error": 7
+        }
+      }
+    },
+    "identity_verified_crossings": {
+      "identity_verified_matches": 30,
+      "unverified_predictions": 1,
+      "unmatched_references": 7,
+      "precision": 0.967741935483871,
+      "recall": 0.8108108108108109,
+      "f1": 0.8823529411764706,
+      "timing_errors_over_one_second": 16
+    },
+    "reference_counts": {
+      "entry": 19,
+      "exit": 18
+    },
+    "predicted_counts": {
+      "entry": 20,
+      "exit": 11
+    },
+    "directional_absolute_error": 8,
+    "tracking": {
+      "HOTA": 41.83639969207274,
+      "IDF1": 58.437720536344386,
+      "association_accuracy": 45.581230392757135,
+      "ID_switches": 65,
+      "fragmentations": 373,
+      "matched_labeled_boxes": 14697,
+      "unmatched_predictions": 2738,
+      "missed_labeled_boxes": 13212,
+      "box_precision": 84.29595640952108,
+      "box_recall": 52.660432118671395
+    },
+    "elapsed_seconds": 537.1039519549813,
+    "frames": 16605,
+    "end_to_end_fps": 30.91580305741595
+  },
+  "after_metal": {
+    "timely_crossings": {
+      "matched": 33,
+      "extra": 2,
+      "missed": 4,
+      "precision": 0.9428571428571428,
+      "recall": 0.8918918918918919,
+      "f1": 0.9166666666666666,
+      "directions": {
+        "entry": {
+          "reference": 19,
+          "model": 19,
+          "sum_absolute_clip_error": 0
+        },
+        "exit": {
+          "reference": 18,
+          "model": 16,
+          "sum_absolute_clip_error": 2
+        }
+      }
+    },
+    "identity_verified_crossings": {
+      "identity_verified_matches": 35,
+      "unverified_predictions": 0,
+      "unmatched_references": 2,
+      "precision": 1.0,
+      "recall": 0.9459459459459459,
+      "f1": 0.9722222222222222,
+      "timing_errors_over_one_second": 2
+    },
+    "reference_counts": {
+      "entry": 19,
+      "exit": 18
+    },
+    "predicted_counts": {
+      "entry": 19,
+      "exit": 16
+    },
+    "directional_absolute_error": 2,
+    "tracking": {
+      "HOTA": 41.83639969207274,
+      "IDF1": 58.437720536344386,
+      "association_accuracy": 45.581230392757135,
+      "ID_switches": 65,
+      "fragmentations": 373,
+      "matched_labeled_boxes": 14697,
+      "unmatched_predictions": 2738,
+      "missed_labeled_boxes": 13212,
+      "box_precision": 84.29595640952108,
+      "box_recall": 52.660432118671395
+    },
+    "elapsed_seconds": 550.0629881640198,
+    "frames": 16605,
+    "end_to_end_fps": 30.187451905141927
+  },
+  "per_video": [
+    {
+      "sequence": "EnterExitCrossingPaths1front",
+      "split": "development",
+      "frames": 383,
+      "seconds": 30.00256883300608,
+      "fps": 12.765573579108281,
+      "reference_crossings": 2,
+      "matched": 2,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "TwoEnterShop1front",
+      "split": "development",
+      "frames": 1645,
+      "seconds": 50.66895941700204,
+      "fps": 32.46563613951025,
+      "reference_crossings": 4,
+      "matched": 3,
+      "extra": 0,
+      "missed": 1
+    },
+    {
+      "sequence": "OneStopMoveEnter1front",
+      "split": "development",
+      "frames": 1590,
+      "seconds": 50.76404400001047,
+      "fps": 31.32138172442826,
+      "reference_crossings": 3,
+      "matched": 3,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "OneStopEnter1front",
+      "split": "validation",
+      "frames": 1500,
+      "seconds": 48.564066457998706,
+      "fps": 30.887034579307635,
+      "reference_crossings": 3,
+      "matched": 3,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "OneShopOneWait1front",
+      "split": "validation",
+      "frames": 1377,
+      "seconds": 45.58856704100617,
+      "fps": 30.204941488101852,
+      "reference_crossings": 2,
+      "matched": 2,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "ThreePastShop1front",
+      "split": "validation",
+      "frames": 1650,
+      "seconds": 51.65296500001568,
+      "fps": 31.943955201787524,
+      "reference_crossings": 0,
+      "matched": 0,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "TwoEnterShop2front",
+      "split": "holdout",
+      "frames": 1605,
+      "seconds": 52.1295737909968,
+      "fps": 30.788665306087665,
+      "reference_crossings": 7,
+      "matched": 6,
+      "extra": 0,
+      "missed": 1
+    },
+    {
+      "sequence": "TwoEnterShop3front",
+      "split": "holdout",
+      "frames": 1075,
+      "seconds": 34.10344133299077,
+      "fps": 31.52174554771613,
+      "reference_crossings": 6,
+      "matched": 6,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "OneStopMoveEnter2front",
+      "split": "holdout",
+      "frames": 2237,
+      "seconds": 69.4783209580055,
+      "fps": 32.19709355601873,
+      "reference_crossings": 4,
+      "matched": 4,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "OneLeaveShopReenter2front",
+      "split": "holdout",
+      "frames": 560,
+      "seconds": 19.11201587499818,
+      "fps": 29.300938407683976,
+      "reference_crossings": 2,
+      "matched": 2,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "OneShopOneWait2front",
+      "split": "holdout",
+      "frames": 1462,
+      "seconds": 44.828231958003016,
+      "fps": 32.613376351083026,
+      "reference_crossings": 4,
+      "matched": 4,
+      "extra": 0,
+      "missed": 0
+    },
+    {
+      "sequence": "ThreePastShop2front",
+      "split": "holdout",
+      "frames": 1521,
+      "seconds": 53.17023349998635,
+      "fps": 28.606231341835098,
+      "reference_crossings": 0,
+      "matched": 0,
+      "extra": 0,
+      "missed": 0
+    }
+  ],
+  "sustained_1080p": {
+    "sequence": "MOT17-04",
+    "source_native_fps": 30,
+    "source_size": [
+      1920,
+      1080
+    ],
+    "original_sequence_frames": 1050,
+    "original_sequence_seconds": 35.0,
+    "scheduled_frames": 9000,
+    "scheduled_video_seconds": 300.0,
+    "device": "mps",
+    "model": "yolo11s.pt",
+    "detector_imgsz": 640,
+    "wall_seconds_including_model_loading": 377.09525225000107,
+    "performance": {
+      "target_fps": 30,
+      "arrival_paced": true,
+      "frames": 9000,
+      "processing_window_seconds": 375.3624566660146,
+      "effective_fps": 23.97682517302978,
+      "active_processing_fps": 23.982136887349046,
+      "processing_p95_seconds": 0.04636536693724338,
+      "definition": "Frame age: completion minus scheduled arrival. Behind: completion minus the next frame deadline. Model loading precedes arrival schedule; first-inference startup is included. Every frame is retained.",
+      "final_behind_seconds": 75.36245666601462,
+      "max_behind_seconds": 75.36245666601462,
+      "p95_behind_seconds": 70.37458568749386,
+      "p95_frame_age_seconds": 70.40791902082722,
+      "final_lag_frames_equivalent": 2261,
+      "windows": [
+        {
+          "source_minute": 1,
+          "frames": 1800,
+          "active_processing_fps": 24.189501913285838,
+          "end_behind_seconds": 14.428680375014665,
+          "p95_frame_age_seconds": 13.878525707677277
+        },
+        {
+          "source_minute": 2,
+          "frames": 1800,
+          "active_processing_fps": 24.625042043386017,
+          "end_behind_seconds": 27.541561375022866,
+          "p95_frame_age_seconds": 26.904918174678553
+        },
+        {
+          "source_minute": 3,
+          "frames": 1800,
+          "active_processing_fps": 24.349049425224642,
+          "end_behind_seconds": 41.482141583022894,
+          "p95_frame_age_seconds": 40.886191297264396
+        },
+        {
+          "source_minute": 4,
+          "frames": 1800,
+          "active_processing_fps": 23.157092718875816,
+          "end_behind_seconds": 59.22944079100853,
+          "p95_frame_age_seconds": 58.553684889580566
+        },
+        {
+          "source_minute": 5,
+          "frames": 1800,
+          "active_processing_fps": 23.648200078272463,
+          "end_behind_seconds": 75.36245666601462,
+          "p95_frame_age_seconds": 74.52484882256407
+        }
+      ]
+    },
+    "source_archive_sha256": "fe1461d28bcf9df6b58bc7c5f71af401c9e7aff1c8fd5996d87a607503e76cac",
+    "limitations": [
+      "Original 35-second sequence repeated to sustain load, not five minutes of independent footage.",
+      "Native 1080p input; detector resizes according to imgsz. This is not full-resolution neural-network inference.",
+      "Scheduled file playback with serial JPEG/ZIP decoding, inference, tracking, overlays and full 1080p MP4 encoding. Network, camera capture and display latency are not included.",
+      "No dropped frames and no cached model predictions. Repeated camera content may retain tracker state across loop boundaries; counts are not an accuracy measurement."
+    ],
+    "decoded_output_frames": 9000
+  }
+}

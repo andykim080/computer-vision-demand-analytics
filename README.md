@@ -6,6 +6,40 @@ A computer vision–based analytics system for understanding customer behavior, 
 
 The current implementation provides recorded-video detection, temporary tracking IDs, and directional crossing counts as inputs for customer and demand analysis. Engagement scoring and demand forecasting are not implemented.
 
+## Metrics on labeled datasets
+
+**Measured on saved evaluation runs, not a new independent benchmark.** The CAVIAR clips below were inspected and used for camera-specific tuning. Results apply to this selected footage and configuration, not to the New York, Korea, or Taiwan gallery clips.
+
+### CAVIAR retail entrance: 12 clips · 16,605 frames · 37 reference crossings
+
+Pretrained YOLO11s/640 + ByteTrack, one detector pass, Apple Metal. Crossing references use published human track IDs and reviewed entrance events.
+
+| Metric | Earlier configuration | Selected configuration |
+| --- | ---: | ---: |
+| Crossing precision, within 1 second | 51.6% | **94.3%** |
+| Crossing recall, within 1 second | 43.2% | **89.2%** |
+| Crossing F1, within 1 second | 47.1% | **91.7%** |
+| Matched / extra / missed events, within 1 second | 16 / 15 / 21 | **33 / 2 / 4** |
+| Identity-supported crossing F1, within 3 seconds | 88.2% | **97.2%** |
+| Identity-supported matches / extra / missed, within 3 seconds | 30 / 1 / 7 | **35 / 0 / 2** |
+| Entry / exit totals (reference: 19 / 18) | 20 / 11 | **19 / 16** |
+| Sum of absolute per-clip directional count errors | 8 | **2** |
+| Full-scene tracking HOTA / IDF1 (0–100) | 41.84 / 58.44 | 41.84 / 58.44 |
+| Full-scene ID switches | 65 | 65 |
+| End-to-end processing throughput | 30.9 FPS | 30.2 FPS |
+
+The one-second metric matches events one-to-one by direction and timing. The three-second metric additionally requires box associations to the labeled human track ID; its wider timing tolerance explains the higher score. It is not personal identity recognition. Tracking scores are separate from counting scores: the selected counter improves crossing results without improving HOTA or IDF1. Labels may omit real background people. Throughput includes process/model startup, decoding, tracking, overlays and output writing for one sequential run; it is not a guaranteed live-camera rate.
+
+### Dataset coverage
+
+| Labeled dataset | Use in this project | Available result and limits |
+| --- | --- | --- |
+| [CAVIAR](https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/) | Published person boxes/track IDs and reviewed directional crossings; selected 12-clip retail replay | Metrics above. Previously inspected development, validation and holdout-named clips are pooled; this is known-data regression evidence. |
+| [MOT17](https://motchallenge.net/data/MOT17/) | Labeled pedestrian footage; MOT17-04 used for the saved sustained playback test | Native 1920×1080, 30 FPS input; 35 seconds repeated to schedule 9,000 frames over five minutes. **24.0 FPS** active processing and **75.36 s** final backlog. All 9,000 frames retained; YOLO resizes to 640. This run measures local processing load, not detection/tracking accuracy or network latency. |
+| [UA-DETRAC](https://sites.google.com/view/daweidu/projects/ua-detrac) | Labeled vehicle footage retained locally for earlier experiments | Earlier evaluation outputs were removed during cleanup. No current reproducible accuracy score is published here. |
+
+[Saved metric values and provenance](docs/metrics/labeled-evaluation.json) are included in the repository. Dataset videos, labels and generated output videos remain local. No detector training was performed for the selected Metal run; pretrained training-data overlap has not been audited. The location-gallery clips have no complete manual labels and are not included in these scores.
+
 ## Before and after
 
 Original footage and processed output at the same frame. “Before” means source footage; “after” means tracking overlays, not a comparison of model accuracy.
@@ -56,7 +90,7 @@ computer-vision-demand-analytics --help
 
 The installed command is available when `.venv/bin` is on your PATH (for example, after `source .venv/bin/activate`); otherwise use `.venv/bin/computer-vision-demand-analytics` or `.venv/bin/python tracker.py`.
 
-Downloaded datasets, model weights, and generated outputs are excluded from this repository. Supply your own authorized constant-frame-rate recording and calibrate the entrance line for that camera. The `data/` examples and `outputs/` review links below refer to local evaluation artifacts and are not included in a fresh clone. The four README screenshots are included under `docs/screenshots/`.
+Downloaded datasets, model weights, and generated outputs are excluded from this repository. Supply your own authorized constant-frame-rate recording and calibrate the entrance line for that camera. The `data/` examples and `outputs/` review links below refer to local evaluation artifacts and are not included in a fresh clone. The README screenshots are included under `docs/screenshots/`.
 
 ## Run a recording
 
