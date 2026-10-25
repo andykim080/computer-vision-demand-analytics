@@ -1,0 +1,68 @@
+[
+  {
+    "source": "outputs/class-confidence/report.json",
+    "published": "docs/metrics/confidence-study/class-confidence/report.json",
+    "sha256": "ec0a05cdfeda370111d91097dba682e44a58039f7537ba75bc3184538de3571b",
+    "bytes": 3021575
+  },
+  {
+    "source": "outputs/larger-confidence/report.json",
+    "published": "docs/metrics/confidence-study/larger-confidence/report.json",
+    "sha256": "871cef45e8dedc5c52333cb3f729ac37d189e80f3874e63d40e020129fa0661f",
+    "bytes": 15748239
+  },
+  {
+    "source": "outputs/larger-confidence-recovery/report.json",
+    "published": "docs/metrics/confidence-study/larger-confidence-recovery/report.json",
+    "sha256": "ca54bf07c3ec1424dbca99ab681263a125bba081a25934b20febea9480f190ea",
+    "bytes": 3350081
+  },
+  {
+    "source_video": "outputs/class-confidence/seoul-songridan-gil.mp4",
+    "source_sha256": "32fc1d571f8fef0088f913593711b95dade8caaff8cd9ce0fecbd5286e3654d5",
+    "published": "docs/metrics/confidence-study/seoul-songridan-gil.jpg",
+    "zero_based_frame": 40,
+    "video_fps": 5.0,
+    "size": [
+      1536,
+      470
+    ],
+    "jpeg_quality": 93
+  },
+  {
+    "source_video": "outputs/class-confidence/taiwan-linkou.mp4",
+    "source_sha256": "d031a5f3f666c42bd7031e11b9091097d7bf2005d693b4b24d3243d8fcbe634c",
+    "published": "docs/metrics/confidence-study/taiwan-linkou.jpg",
+    "zero_based_frame": 40,
+    "video_fps": 5.0,
+    "size": [
+      1536,
+      470
+    ],
+    "jpeg_quality": 93
+  },
+  {
+    "source_video": "outputs/larger-confidence-recovery/mot17-09-later.mp4",
+    "source_sha256": "a8a209ce02052c4f91f052d9b8caf5b6d211478eab0e1736d275d900278abc26",
+    "published": "docs/metrics/confidence-study/mot17-09-later.jpg",
+    "zero_based_frame": 120,
+    "video_fps": 30.0,
+    "size": [
+      1536,
+      490
+    ],
+    "jpeg_quality": 93
+  },
+  {
+    "source_video": "outputs/larger-confidence-recovery/mvi_63561-later.mp4",
+    "source_sha256": "d5d1f00202bde2264663b449cb3cbef7976ae79cb910db4065692ab8377d7283",
+    "published": "docs/metrics/confidence-study/mvi_63561-later.jpg",
+    "zero_based_frame": 100,
+    "video_fps": 25.0,
+    "size": [
+      1536,
+      490
+    ],
+    "jpeg_quality": 93
+  }
+]

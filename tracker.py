@@ -34,7 +34,8 @@ def vehicle_nms(boxes, confidence, iou):
 class SeparateVehicleTracker:
     """One detector pass, isolated person/vehicle ByteTrack state and thresholds."""
     def __init__(self, tracker_path, vehicle_settings, person_settings=None,
-                 frame_rate=30, track_buffer_seconds=None, person_suppression=None):
+                 frame_rate=30, track_buffer_seconds=None, person_suppression=None,
+                 class_confidence=None):
         import yaml
         from ultralytics.trackers.byte_tracker import BYTETracker
         settings = yaml.safe_load(Path(tracker_path).read_text())
@@ -56,9 +57,17 @@ class SeparateVehicleTracker:
         self.class_evidence = defaultdict(Counter)
         self.person_suppression = person_suppression
         self.person_boxes_suppressed = 0
+        self.class_confidence = class_confidence or {}
+        self.class_boxes_filtered = Counter()
 
     def update(self, result, image, names, confidence, iou):
         boxes = result.boxes.cpu().numpy()
+        if self.class_confidence:
+            from detection import class_confidence_indices
+            retained = class_confidence_indices(boxes.data, names, self.class_confidence)
+            rejected = set(range(len(boxes))) - set(retained)
+            self.class_boxes_filtered.update(names[int(boxes.cls[i])] for i in rejected)
+            boxes = boxes[retained]
         person_mask = [names[int(cls)] == "person" for cls in boxes.cls]
         import numpy as np
         mask = np.asarray(person_mask, dtype=bool)
@@ -209,6 +218,14 @@ def load_config(path):
             if (not isinstance(value, (int, float)) or not math.isfinite(value) or
                     not (0 < value <= 1 if key == 'iou' else 0 <= value < 1)):
                 raise ValueError(f'Invalid person_suppression.{key}')
+    thresholds = config.get('class_confidence')
+    if thresholds is not None:
+        if not isinstance(thresholds, dict) or not thresholds or vehicle is None:
+            raise ValueError('class_confidence requires separate tracking and a nonempty class-to-cutoff object')
+        for name, value in thresholds.items():
+            if (not isinstance(name, str) or not name.strip() or isinstance(value, bool) or
+                    not isinstance(value, (int,float)) or not math.isfinite(value) or not 0 < value <= 1):
+                raise ValueError('class_confidence requires nonempty class names and finite cutoffs in (0, 1]')
     views = config.get('person_detection')
     if views is not None:
         if vehicle is None:
@@ -284,12 +301,18 @@ def run(args):
         selected = {i: name for i, name in names.items() if name in args.classes}
         if set(selected.values()) != set(args.classes):
             raise ValueError("Model must include the requested class names")
+        thresholds = config.get('class_confidence', {})
+        if set(thresholds)-set(names.values()):
+            raise ValueError('class_confidence contains class names absent from this model')
+        if thresholds and args.conf > min(thresholds.values()):
+            raise ValueError('Base --conf must not exceed the smallest class_confidence cutoff')
         vehicle_settings = config.get("vehicle_tracking")
         separate = SeparateVehicleTracker(
             args.tracker, vehicle_settings, config.get('person_tracking'),
             frame_rate=fps if config.get('track_buffer_seconds') else 30,
             track_buffer_seconds=config.get('track_buffer_seconds'),
-            person_suppression=config.get('person_suppression')) if vehicle_settings else None
+            person_suppression=config.get('person_suppression'),
+            class_confidence=thresholds) if vehicle_settings else None
         from detection import PersonViews
         person_views = PersonViews(config['person_detection'], ROOT) if config.get('person_detection') and 'person' in selected.values() else None
         vehicle_counter = LineCounter(
@@ -402,6 +425,7 @@ def run(args):
                        tracked_observations=tracked_observations,
                        separate_tracker_settings=separate.settings if separate else None,
                        person_boxes_suppressed=separate.person_boxes_suppressed if separate else 0,
+                       class_boxes_filtered=dict(separate.class_boxes_filtered) if separate else {},
                        timestamp_basis="zero-based frame index / nominal FPS; not wall-clock time",
                        limitations=["Single camera; temporary IDs are not unique visitors", "Counts are crossings, not occupancy", "ID switches, occlusions and long gaps can miss or duplicate counts", "Variable-frame-rate input requires conversion to constant frame rate"])
         writer.release()

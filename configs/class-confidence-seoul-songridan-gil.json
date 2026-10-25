@@ -1,0 +1,37 @@
+{
+  "property_id": "five-site-test",
+  "entry_side": "positive",
+  "deadband_pixels": 8,
+  "confirm_frames": 3,
+  "max_gap_seconds": 0.5,
+  "vehicle_tracking": {
+    "track_high_thresh": 0.2,
+    "new_track_thresh": 0.2,
+    "initial_confirm_frames": 1,
+    "deadband_pixels": 3,
+    "nms_iou": 0.7
+  },
+  "camera_id": "seoul-songridan-gil",
+  "line": [
+    [
+      0.45,
+      0.25
+    ],
+    [
+      0.45,
+      0.95
+    ]
+  ],
+  "compact_overlay": true,
+  "class_confidence": {
+    "car": 0.5,
+    "truck": 0.4,
+    "bus": 0.55,
+    "person": 0.1,
+    "motorcycle": 0.1
+  },
+  "person_tracking": {
+    "track_high_thresh": 0.25,
+    "new_track_thresh": 0.55
+  }
+}

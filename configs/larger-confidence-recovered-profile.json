@@ -1,0 +1,14 @@
+{
+  "class_confidence": {
+    "car": 0.5,
+    "truck": 0.4,
+    "bus": 0.55,
+    "person": 0.1,
+    "motorcycle": 0.1
+  },
+  "person_new": 0.5,
+  "vehicle_new": 0.2,
+  "match_thresh": 0.9,
+  "buffer_seconds": 2.4,
+  "fuse_score": false
+}

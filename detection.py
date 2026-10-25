@@ -2,6 +2,12 @@
 from pathlib import Path
 
 
+def class_confidence_indices(rows, names, thresholds):
+    """Optional class-specific detector cutoffs; no geometry or motion rules."""
+    return [i for i, row in enumerate(rows)
+            if row[4] >= (thresholds or {}).get(names[int(row[5])], 0)]
+
+
 def person_keep_indices(rows, settings):
     """Optional camera-specific duplicate suppression; never uses motion or identity.
 
