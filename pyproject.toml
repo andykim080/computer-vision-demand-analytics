@@ -1,0 +1,19 @@
+[project]
+name = "computer-vision-demand-analytics"
+version = "0.1.0"
+description = "Computer vision for customer and demand analytics through people and vehicle tracking and directional crossing counts"
+requires-python = ">=3.10"
+dependencies = ["ultralytics==8.4.64", "lap>=0.5.12"]
+
+[project.optional-dependencies]
+evaluation = ["trackeval @ git+https://github.com/JonathonLuiten/TrackEval.git@12c8791b303e0a0b50f753af204249e622d0281a"]
+
+[project.scripts]
+computer-vision-demand-analytics = "tracker:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["tracker", "counting", "detection", "evaluation", "performance"]

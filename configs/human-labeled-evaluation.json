@@ -1,0 +1,32 @@
+{
+  "protocol": "Three rounds, disjoint complete parent recordings: development, second validation with tuning, final frozen holdout. No model outcomes from a later round are read when selecting an earlier version.",
+  "processing_fps": 5,
+  "native_fps_check": "Final selected version only, on the two reserved round-3 recordings",
+  "selection": "Highest mean HOTA across the person and vehicle recording, subject to earlier fixture/standing-person/motorcycle regression checks; IDF1 breaks ties. Prefer the incumbent within 0.01 HOTA points.",
+  "round_1_candidates": ["current-retail", "single-yolo11s", "single-yolo11m"],
+  "round_2_candidates": ["incumbent", "association-0.8", "fuse-confidence"],
+  "round_3_comparison": "Frozen selected version and the predeclared original retail baseline at 5 FPS. No holdout-driven tuning; only the selected version receives the additional native-FPS check.",
+  "model_training": false,
+  "rounds": [
+    {"round": 1, "split": "development", "person": "MOT17-02", "vehicle": "MVI_20011"},
+    {"round": 2, "split": "validation-development", "person": "MOT17-04", "vehicle": "MVI_40152"},
+    {"round": 3, "split": "reserved-holdout", "person": "MOT17-09", "vehicle": "MVI_63561"}
+  ],
+  "sequences": {
+    "MOT17-02": {"kind":"person","archive":"mot17-selected.zip","fps":30,"frames":600,"width":1920,"height":1080,"line":[[0.5,0.15],[0.5,0.95]],"title":"Plaza and storefront approaches"},
+    "MOT17-04": {"kind":"person","archive":"mot17-selected.zip","fps":30,"frames":1050,"width":1920,"height":1080,"line":[[0.03,0.6],[0.97,0.6]],"title":"Elevated pedestrian shopping street at night"},
+    "MOT17-09": {"kind":"person","archive":"mot17-selected.zip","fps":30,"frames":525,"width":1920,"height":1080,"line":[[0.6,0.25],[0.6,0.95]],"title":"Supermarket and shop entrances"},
+    "MVI_20011": {"kind":"vehicle","archive":"detrac-selected.zip","fps":25,"frames":664,"width":960,"height":540,"line":[[0.38,0.6],[0.99,0.6]],"title":"Sunlit roadway by a bus stop"},
+    "MVI_40152": {"kind":"vehicle","archive":"detrac-selected.zip","fps":25,"frames":1750,"width":960,"height":540,"line":[[0.55,0.05],[0.55,0.95]],"title":"Cloudy curbside roadway with pole occlusion"},
+    "MVI_63561": {"kind":"vehicle","archive":"detrac-selected.zip","fps":25,"frames":1285,"width":960,"height":540,"line":[[0.55,0.05],[0.55,0.95]],"title":"Rainy divided road with large visible vehicles"}
+  },
+  "limitations": [
+    "Released labeled training sequences used as local holdouts; not the official hidden test set.",
+    "Local source-sequence exclusion does not prove that pretrained YOLO never saw benchmark imagery.",
+    "Vehicle footage is a road benchmark, not supermarket-parking-lot validation; XML marks these cameras unstable.",
+    "MOT17 pedestrian ignore rules are applied using the pinned official TrackEval code.",
+    "UA-DETRAC car/bus/van/others are one vehicle group. Unmatched predictions with >=50% area in the union of published ignored regions are excluded. These are custom subset HOTA/CLEAR/ID scores, not official UA-DETRAC PR-MOTA rankings.",
+    "Reference crossings are independently derived from human-labeled trajectories, not dataset-provided doorway-event labels. Ambiguous low-visibility/overlap references are flagged and excluded from event scoring.",
+    "Counting lines were chosen from source images before model outcomes. They are illustrative image boundaries, not actual property-entry labels."
+  ]
+}

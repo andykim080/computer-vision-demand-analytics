@@ -1,0 +1,18 @@
+{
+  "property_id": "MEVA-demo",
+  "camera_id": "school-G328-vehicle",
+  "line": [
+    [
+      0.7,
+      0.7
+    ],
+    [
+      0.7,
+      0.8
+    ]
+  ],
+  "entry_side": "negative",
+  "deadband_pixels": 8,
+  "confirm_frames": 3,
+  "max_gap_seconds": 0.5
+}

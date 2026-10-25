@@ -1,0 +1,33 @@
+{
+  "property_id": "caviar-shopping-centre",
+  "camera_id": "shop-front",
+  "line": [
+    [
+      0.5352480417754569,
+      0.5052264808362369
+    ],
+    [
+      0.8746736292428199,
+      0.5052264808362369
+    ]
+  ],
+  "entry_side": "negative",
+  "deadband_pixels": 3,
+  "max_gap_seconds": 0.6,
+  "compact_overlay": true,
+  "person_tracking": {
+    "track_high_thresh": 0.25,
+    "new_track_thresh": 0.4
+  },
+  "vehicle_tracking": {
+    "track_high_thresh": 0.2,
+    "new_track_thresh": 0.2
+  },
+  "confirm_frames": 3,
+  "confirm_seconds": 0.12,
+  "track_buffer_seconds": 1.2,
+  "person_suppression": {
+    "iou": 0.6,
+    "nested_height_ratio": 0.7
+  }
+}

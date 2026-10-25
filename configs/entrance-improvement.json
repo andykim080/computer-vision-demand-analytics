@@ -1,0 +1,36 @@
+{
+  "source": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/",
+  "development": "All 12 earlier CAVIAR takes, including the former holdout, are now development data. Their previous scores remain historical and are not called held out again.",
+  "validation": {
+    "EnterExitCrossingPaths2front": "feecp2gt.xml",
+    "OneStopEnter2front": "fose2gt.xml",
+    "OneStopMoveNoEnter2front": "fosmne2gt.xml"
+  },
+  "holdout": {
+    "OneLeaveShop1front": "fols1gt.xml",
+    "OneLeaveShop2front": "fols2gt.xml",
+    "OneLeaveShopReenter1front": "folsr1gt.xml",
+    "ShopAssistant1front": "fsa1gt.xml",
+    "TwoLeaveShop1front": "f2ls1gt.xml",
+    "TwoLeaveShop2front": "f2ls2gt.xml",
+    "OneStopNoEnter1front": "fosne1gt.xml",
+    "OneStopNoEnter2front": "fosne2gt.xml"
+  },
+  "selection": "Highest identity-verified event F1 on the three new validation takes, then development F1, then fewer unverified validation events; prefer fewer suppression rules on ties. Freeze settings/code/source hashes before reading new holdout reference activities or detector outcomes.",
+  "scoring": "Keep prior identity-verified event rule unchanged: direction matches, <=3 seconds timing difference, >=3 one-to-one box associations at IoU>=0.3 to published human ID. Original one-second rule is secondary. No ambiguous-event exclusion.",
+  "reference_method": "Use published hand-labeled shop-enter/exit intervals; choose human footpoint nearest source doorway y=145 during interval; visually inspect before detector outcomes for each split. New holdout reference review is gated until settings are frozen. Retain crossings outside any proposed counting segment.",
+  "model": "yolo11s.pt",
+  "imgsz": 640,
+  "fps": 25,
+  "model_training": false,
+  "fixes": {
+    "geometry": "Use complete doorway segment x=205..335 at y=145; no detector crop; three-pixel deadband, 0.12-second confirmation, 0.6-second maximum gap, 1.2-second track expiration, person start threshold 0.4.",
+    "suppression_candidates": ["geometry only", "person NMS 0.6", "top-aligned nested partial-body suppression only", "NMS and nested suppression"]
+  },
+  "limitations": [
+    "Same legacy 384x288 indoor camera/day and some actors; new takes, not a new location or modern outdoor-camera validation.",
+    "Public pretrained model training overlap is unknown.",
+    "Geometric duplicate suppression may also remove strongly occluded real people; evaluate groups and pass-by negatives explicitly.",
+    "No face, appearance or biometric identification. Evaluation uses published anonymous IDs only."
+  ]
+}

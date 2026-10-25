@@ -1,0 +1,25 @@
+{
+  "property_id": "private-webcam-test",
+  "camera_id": "earthcam-kathy-pub",
+  "line": [
+    [
+      0.84,
+      0.3
+    ],
+    [
+      0.84,
+      0.8
+    ]
+  ],
+  "entry_side": "positive",
+  "deadband_pixels": 8,
+  "confirm_frames": 3,
+  "max_gap_seconds": 0.5,
+  "vehicle_tracking": {
+    "track_high_thresh": 0.2,
+    "new_track_thresh": 0.2,
+    "initial_confirm_frames": 1,
+    "deadband_pixels": 3,
+    "nms_iou": 0.7
+  }
+}

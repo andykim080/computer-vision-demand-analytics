@@ -1,0 +1,81 @@
+{
+  "source": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/",
+  "attribution": "EC Funded CAVIAR project / IST 2001 37540, University of Edinburgh; publicly released CC BY-SA footage and hand annotations.",
+  "native_fps": 25,
+  "development": {
+    "EnterExitCrossingPaths1front": "feecp1gt.xml",
+    "TwoEnterShop1front": "f2es1gt.xml",
+    "OneStopMoveEnter1front": "fosme1gt.xml"
+  },
+  "validation": {
+    "OneStopEnter1front": "fose1gt.xml",
+    "OneShopOneWait1front": "fosow1gt.xml",
+    "ThreePastShop1front": "f3ps1gt.xml"
+  },
+  "holdout": {
+    "TwoEnterShop2front": "f2es2gt.xml",
+    "TwoEnterShop3front": "f2es3gt.xml",
+    "OneStopMoveEnter2front": "fosme2gt.xml",
+    "OneLeaveShopReenter2front": "folsr2gt.xml",
+    "OneShopOneWait2front": "fosow2gt.xml",
+    "ThreePastShop2front": "f3ps2gt.xml"
+  },
+  "camera": {
+    "property_id": "caviar-shopping-centre",
+    "camera_id": "shop-front",
+    "line": [
+      [
+        0.5352480418,
+        0.5052264808
+      ],
+      [
+        0.7832898172,
+        0.5052264808
+      ]
+    ],
+    "entry_side": "negative",
+    "deadband_pixels": 6,
+    "confirm_seconds": 0.12,
+    "max_gap_seconds": 0.6,
+    "compact_overlay": true,
+    "person_tracking": {
+      "track_high_thresh": 0.25,
+      "new_track_thresh": 0.4
+    },
+    "vehicle_tracking": {
+      "track_high_thresh": 0.2,
+      "new_track_thresh": 0.2
+    },
+    "detection_crop": [
+      140,
+      45,
+      325,
+      210
+    ],
+    "track_buffer_seconds": 1.2
+  },
+  "selection": "Highest directional event F1 on the three validation recordings; fewer false events breaks ties; then prefer calibrated pretrained model to training. No holdout outcomes until selected profile and source/code hashes are saved.",
+  "event_scoring": "One-to-one predicted/reference events of same direction within 1.0 second. All annotated crossings are scored; no ambiguous-event exclusion. Also report per-direction totals and absolute errors, including pass-by-only negative clips.",
+  "reference_method": "Manually review entrance crossings in source footage with published human track IDs and shop-enter/exit activity intervals. Store exact crossing frames and review notes before running any detector on that split. Trajectory line crossings are proposals for review, not automatic reference truth.",
+  "training": {
+    "model": "yolo11s.pt",
+    "images": 180,
+    "epochs": 8,
+    "imgsz": 416,
+    "batch": 8,
+    "freeze": 10,
+    "seed": 42
+  },
+  "limitations": [
+    "One indoor shopping-centre camera, older 384x288 footage, scripted activities; not proof for modern outdoor malls or night/weather performance.",
+    "Different complete takes are split; cameras, recording day and some actors are shared. This is a same-camera pilot, not a new-location generalization test.",
+    "Synchronized corridor camera copies are excluded from every split. Previous local benchmark footage is excluded.",
+    "Public pretrained model overlap with CAVIAR is unknown.",
+    "Few independent entrance events cannot establish a dependable 95% claim, even if sample scores exceed it.",
+    "Some stationary background people are not annotated; full-scene box accuracy is not an acceptance measure here. Every visible entrance crossing must be checked separately."
+  ],
+  "development_changes": [
+    "After inspecting development labels/source only, widen deadband from 3 to 6 pixels to resist rail/box jitter on passing groups; no holdout detector outcomes inspected."
+  ],
+  "selection_revision": "After validation and before holdout model outcomes: select highest identity-verified crossing F1 (same direction, <=3s timing difference, >=3 one-to-one IoU>=0.3 associations with published human IDs); fewer unverified events breaks ties, prefer pretrained on ties. Retain original one-second scores separately. Original rule and outcomes remain in the report."
+}

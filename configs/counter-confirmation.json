@@ -1,0 +1,15 @@
+{
+  "source": "https://homepages.inf.ed.ac.uk/rbf/CAVIARDATA1/",
+  "fps": 25,
+  "holdout": {
+    "WalkByShop1front": "fwbs1gt.xml",
+    "OneStopMoveNoEnter1front": "fosmne1gt.xml",
+    "ShopAssistant2front": "fsa2gt.xml"
+  },
+  "change": "Latch a valid finite-segment crossing while destination confirmation restarts after deadband jitter or a short detection gap. Cancel it on a return to the committed original side or a long gap. Initial observations still do not count as entry.",
+  "comparison": "Same pretrained YOLO11s detections, ByteTrack, doorway profile and suppression settings selected in the previous experiment. Only the counting class differs. Run the saved pre-fix class and the corrected class.",
+  "development": "All previous 23 takes, including the just-completed eight-test group, are development/regression data for this repair.",
+  "selection": "No parameter search or weight training. Freeze code/profile/sources before opening new reserved activity labels or model outcomes.",
+  "scoring": "Unchanged: correct direction, <=3 seconds timing difference, >=3 one-to-one IoU>=0.3 box matches to published human ID. Preserve strict one-second timing separately; no ambiguous exclusions.",
+  "limitations": ["Same legacy indoor camera/day and some actors; not an outdoor or new-camera test.", "A small sample cannot establish dependable 95% accuracy.", "Public pretrained-model exposure to these recordings is unknown."]
+}
