@@ -7,6 +7,7 @@ Updated: 2026-10-24
 - Start with a pretrained small YOLO person detector and ByteTrack on recorded footage.
 - Tune and validate detection and tracking before live streaming or a dashboard.
 - Revisit NVIDIA DeepStream for multi-camera processing and integration: https://github.com/nvidia/deepstream
+- Planned camera-to-floor-plan calibration: **NVIDIA Metropolis Camera Calibration Toolkit**, distinct from detector/tracker tuning. References: [NVIDIA technical article](https://developer.nvidia.com/blog/simplifying-camera-calibration-to-enhance-ai-powered-multi-camera-tracking/) and [toolkit user guide](https://docs.nvidia.com/mms/text/MDX_Camera_Calibration_User_Guide.html). Integration is not implemented.
 - Plan for 4–5 cameras per property. Camera specifications and placement are not yet available. Good image quality is expected; sub-4K resolution and readable license plates are assumptions to validate, not requirements already met.
 
 ## Counting and cross-camera integration
