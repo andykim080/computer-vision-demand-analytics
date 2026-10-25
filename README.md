@@ -12,6 +12,19 @@ This project serves as a baseline for monitoring my privately owned business onc
 
 **Upcoming: NVIDIA Metropolis Camera Calibration Toolkit.** Evaluate its camera-to-floor-plan mapping, regions of interest and virtual tripwires after installation. Reference: NVIDIA’s [Simplifying Camera Calibration to Enhance AI-Powered Multi-Camera Tracking](https://developer.nvidia.com/blog/simplifying-camera-calibration-to-enhance-ai-powered-multi-camera-tracking/) and the [toolkit user guide](https://docs.nvidia.com/mms/text/MDX_Camera_Calibration_User_Guide.html). Calibration maps image coordinates to physical space; detector/tracker tuning remains a separate task. Integration is planned and has not yet been implemented or validated.
 
+## CPU-to-GPU processing improvement
+
+The retail workflow progressed from CPU-based detection to **GPU-accelerated inference on the Apple M1 Pro through Metal / PyTorch MPS**. The selected GPU replay processes all 12 retail clips (16,605 frames) at **30.2 FPS end to end**, including process/model startup, decoding, tracking, overlays and video writing. GPU inference is enabled with `--device mps`; decoding, tracking and encoding still involve CPU work.
+
+| Processing stage | CPU baseline | Selected GPU workflow |
+| --- | --- | --- |
+| Detector execution | CPU | **Apple M1 Pro GPU (Metal/MPS)** |
+| Full retail replay throughput | Reliable historical timing unavailable | **30.2 FPS measured** |
+
+A numerical CPU-to-GPU speedup cannot be established from the saved evidence: the earlier CPU replay used cached, batched person-only detections, while the GPU run uses frame-by-frame people/vehicle inference. On the six retail clips with saved CPU crossing results, the initial GPU replay reproduced those crossing scores. Subsequent counting improvements are reported separately below; moving computation to the GPU alone is not claimed to improve accuracy. The sustained 1080p load test reaches approximately 24 FPS and accumulates backlog at a 30 FPS arrival rate.
+
+[CPU/GPU comparison provenance](docs/metrics/cpu-to-gpu.json) · [timing details](docs/performance.md)
+
 ## Metrics on labeled datasets
 
 **Bold values indicate the better measured outcome for each metric; ties are left unbolded.**

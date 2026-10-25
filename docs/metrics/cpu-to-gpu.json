@@ -1,0 +1,172 @@
+{
+  "source_artifact": "full-20261025T181017Z-pv_pru5q/experiment.json",
+  "source_sha256": "3304e0196ebbb33ed463036f5d4d63ca717480a870b8a7ad68cac069ed85a74d",
+  "device": "Apple M1 Pro GPU, 14 cores; Apple Metal / PyTorch MPS",
+  "settings": {
+    "model": "yolo11s.pt",
+    "imgsz": 640,
+    "conf": 0.1,
+    "iou": 0.7,
+    "classes": [
+      "person",
+      "car",
+      "truck",
+      "bus"
+    ],
+    "config": "configs/retail-baseline.json",
+    "tracker": "configs/bytetrack-low-fps.yaml",
+    "frame_sampling": null
+  },
+  "timing_definition": "Separate fresh tracker subprocess per video; perf_counter includes Python/import/model startup, decoding, inference, tracking, overlay, CSV and MP4 writing. Excludes output verification and scoring. No detection caches. Each job independently timed; one sequential pass, not a repeated statistical benchmark.",
+  "historical_cpu_comparison": {
+    "path": "outputs/restored-baseline/report.json",
+    "sequences": [
+      "TwoEnterShop2front",
+      "TwoEnterShop3front",
+      "OneStopMoveEnter2front",
+      "OneLeaveShopReenter2front",
+      "OneShopOneWait2front",
+      "ThreePastShop2front"
+    ],
+    "prior": {
+      "timely_crossings": {
+        "matched": 12,
+        "extra": 6,
+        "missed": 11,
+        "precision": 0.6666666666666666,
+        "recall": 0.5217391304347826,
+        "f1": 0.5853658536585366,
+        "directions": {
+          "entry": {
+            "reference": 12,
+            "model": 12,
+            "sum_absolute_clip_error": 0
+          },
+          "exit": {
+            "reference": 11,
+            "model": 6,
+            "sum_absolute_clip_error": 5
+          }
+        }
+      },
+      "identity_verified_crossings": {
+        "identity_verified_matches": 18,
+        "unverified_predictions": 0,
+        "unmatched_references": 5,
+        "precision": 1.0,
+        "recall": 0.782608695652174,
+        "f1": 0.8780487804878049,
+        "timing_errors_over_one_second": 7
+      },
+      "reference_counts": {
+        "entry": 12,
+        "exit": 11
+      },
+      "predicted_counts": {
+        "entry": 12,
+        "exit": 6
+      },
+      "directional_absolute_error": 5
+    },
+    "current": {
+      "mps": {
+        "timely_crossings": {
+          "matched": 12,
+          "extra": 6,
+          "missed": 11,
+          "precision": 0.6666666666666666,
+          "recall": 0.5217391304347826,
+          "f1": 0.5853658536585366,
+          "directions": {
+            "entry": {
+              "reference": 12,
+              "model": 12,
+              "sum_absolute_clip_error": 0
+            },
+            "exit": {
+              "reference": 11,
+              "model": 6,
+              "sum_absolute_clip_error": 5
+            }
+          }
+        },
+        "identity_verified_crossings": {
+          "identity_verified_matches": 18,
+          "unverified_predictions": 0,
+          "unmatched_references": 5,
+          "precision": 1.0,
+          "recall": 0.782608695652174,
+          "f1": 0.8780487804878049,
+          "timing_errors_over_one_second": 7
+        },
+        "reference_counts": {
+          "entry": 12,
+          "exit": 11
+        },
+        "predicted_counts": {
+          "entry": 12,
+          "exit": 6
+        },
+        "directional_absolute_error": 5
+      }
+    },
+    "runtime_comparison_available": false,
+    "limitations": "Prior replay uses cached CPU person-only detections in batches of 8; current CLI retains default person/car/truck/bus classes and processes one frame at a time. No trustworthy historical elapsed runtime saved. Results use known previously inspected clips; original split labels retained, not a fresh holdout."
+  },
+  "initial_mps_all": {
+    "timely_crossings": {
+      "matched": 16,
+      "extra": 15,
+      "missed": 21,
+      "precision": 0.5161290322580645,
+      "recall": 0.43243243243243246,
+      "f1": 0.47058823529411764,
+      "directions": {
+        "entry": {
+          "reference": 19,
+          "model": 20,
+          "sum_absolute_clip_error": 1
+        },
+        "exit": {
+          "reference": 18,
+          "model": 11,
+          "sum_absolute_clip_error": 7
+        }
+      }
+    },
+    "identity_verified_crossings": {
+      "identity_verified_matches": 30,
+      "unverified_predictions": 1,
+      "unmatched_references": 7,
+      "precision": 0.967741935483871,
+      "recall": 0.8108108108108109,
+      "f1": 0.8823529411764706,
+      "timing_errors_over_one_second": 16
+    },
+    "reference_counts": {
+      "entry": 19,
+      "exit": 18
+    },
+    "predicted_counts": {
+      "entry": 20,
+      "exit": 11
+    },
+    "directional_absolute_error": 8,
+    "tracking": {
+      "HOTA": 41.83639969207274,
+      "IDF1": 58.437720536344386,
+      "association_accuracy": 45.581230392757135,
+      "ID_switches": 65,
+      "fragmentations": 373,
+      "matched_labeled_boxes": 14697,
+      "unmatched_predictions": 2738,
+      "missed_labeled_boxes": 13212,
+      "box_precision": 84.29595640952108,
+      "box_recall": 52.660432118671395
+    },
+    "elapsed_seconds": 537.1039519549813,
+    "frames": 16605,
+    "end_to_end_fps": 30.91580305741595
+  },
+  "current_selected_mps_source": "labeled-evaluation.json#after_metal"
+}
