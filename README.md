@@ -6,6 +6,12 @@ A computer vision–based analytics system for understanding customer behavior, 
 
 The current implementation provides recorded-video detection, temporary tracking IDs, and directional crossing counts as inputs for customer and demand analysis. Engagement scoring and demand forecasting are not implemented.
 
+## Intended use and next steps
+
+This project serves as a baseline for monitoring my privately owned business once the on-site camera is installed. The current public-dataset tests establish a starting point. After installation, I plan to calibrate the camera view and entrance boundaries, collect representative footage, and further tune detection and tracking for the actual layout, lighting, customer movement and occlusions. Better results are expected from this camera-specific tuning, but improvements must be measured against manually labeled business footage before operational use.
+
+**Upcoming: NVIDIA camera calibration.** Evaluate NVIDIA camera-calibration tools as part of the next integration phase, with the goal of mapping image positions to the business floor plan and supporting more reliable spatial measurements. This work is planned and has not yet been implemented or validated. Camera installation, calibration and on-site evaluation remain future milestones.
+
 ## Metrics on labeled datasets
 
 **Measured on saved evaluation runs, not a new independent benchmark.** The CAVIAR clips below were inspected and used for camera-specific tuning. Results apply to this selected footage and configuration, not to the New York, Korea, or Taiwan gallery clips.
