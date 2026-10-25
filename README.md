@@ -10,12 +10,33 @@ The current implementation provides recorded-video detection, temporary tracking
 
 Original footage and processed output at the same frame. “Before” means source footage; “after” means tracking overlays, not a comparison of model accuracy.
 
-| Example | Before: original footage | After: tracking output |
-| --- | --- | --- |
-| Retail entrance · 18.00 s | ![Original retail entrance frame](docs/screenshots/retail-entrance-before.jpg) | ![Retail entrance with person boxes, temporary IDs, and counting line](docs/screenshots/retail-entrance-after.jpg) |
-| Retail crossings · 28.00 s | ![Original retail crossing frame](docs/screenshots/retail-crossings-before.jpg) | ![Retail crossing with person boxes, temporary IDs, and counting line](docs/screenshots/retail-crossings-after.jpg) |
+### Location test replays
 
-Screenshots use the existing YOLO11s/640 Metal replay of CAVIAR clips `TwoEnterShop3front` (frame 450) and `OneShopOneWait2front` (frame 700), both at 25 FPS. See [screenshot provenance](docs/screenshots/README.md) for source files. These examples illustrate output behavior and do not establish accuracy.
+Examples from our saved New York, South Korea, and Taiwan test clips. Each pair shows frame 40 (8.00 seconds) of the same recording, at its original 1280×720 resolution.
+
+| Location | Before: original footage | After: tracking output |
+| --- | --- | --- |
+| Times Square, New York, USA | ![Times Square original footage at night](docs/screenshots/new-york-times-square-before.jpg) | ![Times Square pedestrian and vehicle tracking](docs/screenshots/new-york-times-square-after.jpg) |
+| Songridan-gil, Seoul, South Korea | ![Songridan-gil original street footage](docs/screenshots/seoul-songridan-gil-before.jpg) | ![Songridan-gil person and vehicle tracking](docs/screenshots/seoul-songridan-gil-after.jpg) |
+| Linkou Old Street, New Taipei City, Taiwan | ![Linkou Old Street original footage](docs/screenshots/taiwan-linkou-before.jpg) | ![Linkou Old Street person and vehicle tracking](docs/screenshots/taiwan-linkou-after.jpg) |
+
+These are fresh short replays of previously collected test clips, using pretrained YOLO11s/1280 and ByteTrack on CPU. They are not recovered images of the deleted historical runs or an independent accuracy benchmark. Lines represent illustrative image-boundary crossings, not verified store entrances. See [source attribution and replay settings](docs/screenshots/README.md#location-test-replays).
+
+### New York observation: idle person at the beginning
+
+A person standing idle near the beginning of the New York footage was reported as not counted. This system counts confirmed line crossings, so an idle person does not increase the counter until they cross the configured boundary. Counts do not measure everyone visible, occupancy, or unique visitors. If the person has no detection box or temporary track ID, that is a separate detection/tracking miss that requires frame-level review.
+
+A confidence-threshold explanation is unconfirmed. The saved New York test plan and this replay use detector confidence **0.10 (10%)**; the active low-FPS ByteTrack profile uses a **0.55 (55%)** new-track threshold, close to the suggested 60%. That threshold can prevent a lower-confidence detection from starting a track, but this has not been verified for the reported idle person. A box's displayed confidence, when present, is its prediction score rather than the configured cutoff. We have not established which mechanism explains the reported person at the start of the clip.
+
+### Known limitation: mannequin detected as a person
+
+The original retail walkthrough illustrates a false positive: a shop mannequin is classified and tracked as a person. A stable tracking ID does not establish that a detection is a real customer. Such detections can distort customer-activity measures and could affect crossing counts if their tracked position crosses the configured line; this image alone does not establish a false crossing event.
+
+| Before: original retail footage | After: mannequin false positive in tracking output |
+| --- | --- |
+| ![Original retail walkthrough with a shop display](docs/screenshots/retail-crossings-before.jpg) | ![Retail walkthrough showing the reported mannequin classified as a person](docs/screenshots/retail-crossings-after.jpg) |
+
+This existing CAVIAR replay frame is retained as a failure example, not evidence of successful customer identification. It is frame 700 (28.00 seconds) of `OneShopOneWait2front`, using YOLO11s/640 on Apple Metal. Scene-specific exclusion zones and representative person/mannequin labels are possible mitigations; they have not been validated here.
 
 ## Current implementation
 

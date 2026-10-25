@@ -1,0 +1,362 @@
+[
+  {
+    "name": "new-york-times-square",
+    "frame_index": 40,
+    "video_seconds": 8.0,
+    "source": "data/test-five-sites/times-square/05-plus-08m.mp4",
+    "source_sha256": "ec54f43bb284e8705165e688a25639a329c57eba92a675936af6155f56afc9cb",
+    "processed_video": "outputs/readme-location-replays/new-york-times-square.mp4",
+    "settings": {
+      "run_id": "6e609d41caac",
+      "processed_at_utc": "2026-10-25T19:11:31.499703+00:00",
+      "frames_processed": 61,
+      "processed_seconds": 12.2,
+      "fps": 5.0,
+      "device": "cpu",
+      "performance": {
+        "target_fps": 5.0,
+        "arrival_paced": false,
+        "frames": 61,
+        "processing_window_seconds": 10.440447625005618,
+        "effective_fps": 5.842661367688933,
+        "active_processing_fps": 5.842798924507215,
+        "processing_p95_seconds": 0.18897804099833593,
+        "definition": "Frame age: completion minus scheduled arrival. Behind: completion minus the next frame deadline. Model loading precedes arrival schedule; first-inference startup is included. Every frame is retained."
+      },
+      "detector_conf": 0.1,
+      "detector_iou": 0.7,
+      "imgsz": 1280,
+      "config": {
+        "property_id": "five-site-test",
+        "entry_side": "positive",
+        "deadband_pixels": 8,
+        "confirm_frames": 3,
+        "max_gap_seconds": 0.5,
+        "vehicle_tracking": {
+          "track_high_thresh": 0.2,
+          "new_track_thresh": 0.2,
+          "initial_confirm_frames": 1,
+          "deadband_pixels": 3,
+          "nms_iou": 0.7
+        },
+        "camera_id": "new-york-times-square",
+        "line": [
+          [
+            0.5,
+            0.05
+          ],
+          [
+            0.5,
+            0.95
+          ]
+        ],
+        "compact_overlay": true
+      },
+      "tracker_config": "tracker_type: bytetrack\ntrack_high_thresh: 0.25\ntrack_low_thresh: 0.1\nnew_track_thresh: 0.55\ntrack_buffer: 30\nmatch_thresh: 0.9\nfuse_score: false\n",
+      "counts": {
+        "person": {
+          "entry": 0,
+          "exit": 0
+        },
+        "car": {
+          "entry": 0,
+          "exit": 3
+        },
+        "truck": {
+          "entry": 0,
+          "exit": 0
+        },
+        "bus": {
+          "entry": 0,
+          "exit": 0
+        },
+        "motorcycle": {
+          "entry": 0,
+          "exit": 0
+        },
+        "bicycle": {
+          "entry": 0,
+          "exit": 0
+        }
+      },
+      "tracked_observations": {
+        "person": 731,
+        "car": 318,
+        "truck": 55,
+        "bus": 0,
+        "motorcycle": 10,
+        "bicycle": 17
+      },
+      "separate_tracker_settings": {
+        "person": {
+          "tracker_type": "bytetrack",
+          "track_high_thresh": 0.25,
+          "track_low_thresh": 0.1,
+          "new_track_thresh": 0.55,
+          "track_buffer": 30,
+          "match_thresh": 0.9,
+          "fuse_score": false
+        },
+        "vehicle": {
+          "tracker_type": "bytetrack",
+          "track_high_thresh": 0.2,
+          "track_low_thresh": 0.1,
+          "new_track_thresh": 0.2,
+          "track_buffer": 30,
+          "match_thresh": 0.9,
+          "fuse_score": false
+        }
+      },
+      "person_boxes_suppressed": 0,
+      "timestamp_basis": "zero-based frame index / nominal FPS; not wall-clock time",
+      "limitations": [
+        "Single camera; temporary IDs are not unique visitors",
+        "Counts are crossings, not occupancy",
+        "ID switches, occlusions and long gaps can miss or duplicate counts",
+        "Variable-frame-rate input requires conversion to constant frame rate"
+      ],
+      "wall_seconds": 29.46225716700428
+    },
+    "model": "yolo11s.pt"
+  },
+  {
+    "name": "seoul-songridan-gil",
+    "frame_index": 40,
+    "video_seconds": 8.0,
+    "source": "data/retail-security-test/songridan-gil.mp4",
+    "source_sha256": "bd9311657e95df8753ae9a8779d90d3e70c961e6298185de91ca11b8a019ee9a",
+    "processed_video": "outputs/readme-location-replays/seoul-songridan-gil.mp4",
+    "settings": {
+      "run_id": "0f5c5f66077d",
+      "processed_at_utc": "2026-10-25T19:12:00.121539+00:00",
+      "frames_processed": 61,
+      "processed_seconds": 12.2,
+      "fps": 5.0,
+      "device": "cpu",
+      "performance": {
+        "target_fps": 5.0,
+        "arrival_paced": false,
+        "frames": 61,
+        "processing_window_seconds": 9.771983208978781,
+        "effective_fps": 6.24233573630698,
+        "active_processing_fps": 6.2424788280318,
+        "processing_p95_seconds": 0.18515670899068937,
+        "definition": "Frame age: completion minus scheduled arrival. Behind: completion minus the next frame deadline. Model loading precedes arrival schedule; first-inference startup is included. Every frame is retained."
+      },
+      "detector_conf": 0.1,
+      "detector_iou": 0.7,
+      "imgsz": 1280,
+      "config": {
+        "property_id": "five-site-test",
+        "entry_side": "positive",
+        "deadband_pixels": 8,
+        "confirm_frames": 3,
+        "max_gap_seconds": 0.5,
+        "vehicle_tracking": {
+          "track_high_thresh": 0.2,
+          "new_track_thresh": 0.2,
+          "initial_confirm_frames": 1,
+          "deadband_pixels": 3,
+          "nms_iou": 0.7
+        },
+        "camera_id": "seoul-songridan-gil",
+        "line": [
+          [
+            0.45,
+            0.25
+          ],
+          [
+            0.45,
+            0.95
+          ]
+        ],
+        "compact_overlay": true
+      },
+      "tracker_config": "tracker_type: bytetrack\ntrack_high_thresh: 0.25\ntrack_low_thresh: 0.1\nnew_track_thresh: 0.55\ntrack_buffer: 30\nmatch_thresh: 0.9\nfuse_score: false\n",
+      "counts": {
+        "person": {
+          "entry": 0,
+          "exit": 0
+        },
+        "car": {
+          "entry": 0,
+          "exit": 0
+        },
+        "truck": {
+          "entry": 0,
+          "exit": 0
+        },
+        "bus": {
+          "entry": 0,
+          "exit": 0
+        },
+        "motorcycle": {
+          "entry": 0,
+          "exit": 0
+        },
+        "bicycle": {
+          "entry": 0,
+          "exit": 0
+        }
+      },
+      "tracked_observations": {
+        "person": 508,
+        "car": 102,
+        "truck": 19,
+        "bus": 7,
+        "motorcycle": 0,
+        "bicycle": 0
+      },
+      "separate_tracker_settings": {
+        "person": {
+          "tracker_type": "bytetrack",
+          "track_high_thresh": 0.25,
+          "track_low_thresh": 0.1,
+          "new_track_thresh": 0.55,
+          "track_buffer": 30,
+          "match_thresh": 0.9,
+          "fuse_score": false
+        },
+        "vehicle": {
+          "tracker_type": "bytetrack",
+          "track_high_thresh": 0.2,
+          "track_low_thresh": 0.1,
+          "new_track_thresh": 0.2,
+          "track_buffer": 30,
+          "match_thresh": 0.9,
+          "fuse_score": false
+        }
+      },
+      "person_boxes_suppressed": 0,
+      "timestamp_basis": "zero-based frame index / nominal FPS; not wall-clock time",
+      "limitations": [
+        "Single camera; temporary IDs are not unique visitors",
+        "Counts are crossings, not occupancy",
+        "ID switches, occlusions and long gaps can miss or duplicate counts",
+        "Variable-frame-rate input requires conversion to constant frame rate"
+      ],
+      "wall_seconds": 27.94226837498718
+    },
+    "model": "yolo11s.pt"
+  },
+  {
+    "name": "taiwan-linkou",
+    "frame_index": 40,
+    "video_seconds": 8.0,
+    "source": "data/retail-security-test/linkou-old-street.mp4",
+    "source_sha256": "714c24b0f6345ea451ed86414933107f9b4041311f8a68b35d891ee7231a8d52",
+    "processed_video": "outputs/readme-location-replays/taiwan-linkou.mp4",
+    "settings": {
+      "run_id": "3a75c274f348",
+      "processed_at_utc": "2026-10-25T19:12:28.601132+00:00",
+      "frames_processed": 61,
+      "processed_seconds": 12.2,
+      "fps": 5.0,
+      "device": "cpu",
+      "performance": {
+        "target_fps": 5.0,
+        "arrival_paced": false,
+        "frames": 61,
+        "processing_window_seconds": 9.718325291993096,
+        "effective_fps": 6.276801626537213,
+        "active_processing_fps": 6.27692262087644,
+        "processing_p95_seconds": 0.16772816702723503,
+        "definition": "Frame age: completion minus scheduled arrival. Behind: completion minus the next frame deadline. Model loading precedes arrival schedule; first-inference startup is included. Every frame is retained."
+      },
+      "detector_conf": 0.1,
+      "detector_iou": 0.7,
+      "imgsz": 1280,
+      "config": {
+        "property_id": "five-site-test",
+        "entry_side": "positive",
+        "deadband_pixels": 8,
+        "confirm_frames": 3,
+        "max_gap_seconds": 0.5,
+        "vehicle_tracking": {
+          "track_high_thresh": 0.2,
+          "new_track_thresh": 0.2,
+          "initial_confirm_frames": 1,
+          "deadband_pixels": 3,
+          "nms_iou": 0.7
+        },
+        "camera_id": "taiwan-linkou",
+        "line": [
+          [
+            0.55,
+            0.25
+          ],
+          [
+            0.55,
+            0.97
+          ]
+        ],
+        "compact_overlay": true
+      },
+      "tracker_config": "tracker_type: bytetrack\ntrack_high_thresh: 0.25\ntrack_low_thresh: 0.1\nnew_track_thresh: 0.55\ntrack_buffer: 30\nmatch_thresh: 0.9\nfuse_score: false\n",
+      "counts": {
+        "person": {
+          "entry": 0,
+          "exit": 0
+        },
+        "car": {
+          "entry": 0,
+          "exit": 0
+        },
+        "truck": {
+          "entry": 0,
+          "exit": 0
+        },
+        "bus": {
+          "entry": 0,
+          "exit": 0
+        },
+        "motorcycle": {
+          "entry": 0,
+          "exit": 0
+        },
+        "bicycle": {
+          "entry": 0,
+          "exit": 0
+        }
+      },
+      "tracked_observations": {
+        "person": 37,
+        "car": 392,
+        "truck": 51,
+        "bus": 0,
+        "motorcycle": 381,
+        "bicycle": 0
+      },
+      "separate_tracker_settings": {
+        "person": {
+          "tracker_type": "bytetrack",
+          "track_high_thresh": 0.25,
+          "track_low_thresh": 0.1,
+          "new_track_thresh": 0.55,
+          "track_buffer": 30,
+          "match_thresh": 0.9,
+          "fuse_score": false
+        },
+        "vehicle": {
+          "tracker_type": "bytetrack",
+          "track_high_thresh": 0.2,
+          "track_low_thresh": 0.1,
+          "new_track_thresh": 0.2,
+          "track_buffer": 30,
+          "match_thresh": 0.9,
+          "fuse_score": false
+        }
+      },
+      "person_boxes_suppressed": 0,
+      "timestamp_basis": "zero-based frame index / nominal FPS; not wall-clock time",
+      "limitations": [
+        "Single camera; temporary IDs are not unique visitors",
+        "Counts are crossings, not occupancy",
+        "ID switches, occlusions and long gaps can miss or duplicate counts",
+        "Variable-frame-rate input requires conversion to constant frame rate"
+      ],
+      "wall_seconds": 27.841372416995
+    },
+    "model": "yolo11s.pt"
+  }
+]
