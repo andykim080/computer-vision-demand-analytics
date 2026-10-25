@@ -14,6 +14,8 @@ This project serves as a baseline for monitoring my privately owned business onc
 
 ## Metrics on labeled datasets
 
+**Bold values indicate the better measured outcome for each metric; ties are left unbolded.**
+
 **Measured on saved evaluation runs, not a new independent benchmark.** The CAVIAR clips below were inspected and used for camera-specific tuning. Results apply to this selected footage and configuration, not to the New York, Korea, or Taiwan gallery clips.
 
 ### CAVIAR retail entrance: 12 clips · 16,605 frames · 37 reference crossings
@@ -32,7 +34,7 @@ Pretrained YOLO11s/640 + ByteTrack, one detector pass, Apple Metal. Crossing ref
 | Sum of absolute per-clip directional count errors | 8 | **2** |
 | Full-scene tracking HOTA / IDF1 (0–100) | 41.84 / 58.44 | 41.84 / 58.44 |
 | Full-scene ID switches | 65 | 65 |
-| End-to-end processing throughput | 30.9 FPS | 30.2 FPS |
+| End-to-end processing throughput | **30.9 FPS** | 30.2 FPS |
 
 The one-second metric matches events one-to-one by direction and timing. The three-second metric additionally requires box associations to the labeled human track ID; its wider timing tolerance explains the higher score. It is not personal identity recognition. Tracking scores are separate from counting scores: the selected counter improves crossing results without improving HOTA or IDF1. Labels may omit real background people. Throughput includes process/model startup, decoding, tracking, overlays and output writing for one sequential run; it is not a guaranteed live-camera rate.
 
@@ -42,10 +44,10 @@ On **440 later-window native-FPS frames / 4,179 publisher-labeled appearances**,
 
 | Tracked-box metric | Adopted initial profile | Rejected tracker adjustment |
 | --- | ---: | ---: |
-| Recall | **75.21%** | 75.28% |
+| Recall | 75.21% | **75.28%** |
 | F1 | **79.97%** | 79.71% |
 | Precision | **85.38%** | 84.68% |
-| Matched / unmatched / missed boxes | **3,143 / 538 / 1,036** | 3,146 / 569 / 1,033 |
+| Matched / unmatched / missed boxes | 3,143 / **538** / 1,036 | **3,146** / 569 / **1,033** |
 
 Only three extra matches cost 31 extra unmatched predictions. The user retained person track initiation 0.55 and 30-frame retention, rejecting initiation 0.50 with 2.4-second retention. Class cutoffs remain car 0.50, truck 0.40, bus 0.55 and person/motorcycle 0.10. General application defaults were never promoted to the rejected experiment, and no detector weights changed. These box metrics are separate from CAVIAR crossing scores; earlier source windows/cameras were already used in development.
 
@@ -197,9 +199,9 @@ On the same Seoul and Taiwan clips, cars/trucks at 0.55 with people/motorcycles 
 | Cutoffs | Foreground box recall | F1 | Precision |
 | --- | --- | --- | --- |
 | Original 0.10 for all classes | 67.6% | 71.9% | 76.7% |
-| Global 0.55 | 50.0% | 65.4% | 94.4% |
+| Global 0.55 | 50.0% | 65.4% | **94.4%** |
 | Requested car/truck 0.55; others 0.10 | 67.6% | 76.7% | 88.5% |
-| Selected class cutoffs | 70.6% | 78.7% | 88.9% |
+| Selected class cutoffs | **70.6%** | **78.7%** | 88.9% |
 
 These scores use **34 approximate agent-reviewed object appearances in four foreground frames**, with correct-class, one-to-one IoU≥0.5 matching. They are not the earlier crossing metrics, a full-scene accuracy estimate, or an independent test. Reference boxes and scoring boundaries are evaluation-only and never filter predictions. There are no real bus/truck reference targets in this tiny sample, so their recall is unmeasured. Some occluded, partial and moving objects remain missed or mislabeled.
 
@@ -227,11 +229,11 @@ After freezing that correction, later source windows from seconds 8–16 of two 
 
 | Later-window result | Initial class-specific profile | Corrected recall-first candidate |
 | --- | --- | --- |
-| Tracked-box recall | 75.21% | 75.28% |
-| Tracked-box F1 | 79.97% | 79.71% |
-| Tracked-box precision | 85.38% | 84.68% |
-| Matched boxes | 3,143 | 3,146 |
-| Unmatched predictions | 538 | 569 |
+| Tracked-box recall | 75.21% | **75.28%** |
+| Tracked-box F1 | **79.97%** | 79.71% |
+| Tracked-box precision | **85.38%** | 84.68% |
+| Matched boxes | 3,143 | **3,146** |
+| Unmatched predictions | **538** | 569 |
 
 The extra three matches cost 31 extra unmatched predictions. This does **not** support a clear general improvement; application defaults remain unchanged. The corrected configuration is saved for investigation in `configs/larger-confidence-recovered-profile.json`. This is an experiment profile consumed by the helper, not a camera-line file for `--config`. The earlier rejected profile is retained separately in `configs/larger-confidence-candidate.json` as evidence, not a recommended setting.
 

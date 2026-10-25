@@ -4,19 +4,21 @@ The adopted version is the **initial class-specific profile**, as recorded in `u
 
 ## Why the tracker adjustment was rejected
 
+**Bold values indicate the better measured outcome for each metric; ties are left unbolded.**
+
 The fourth-round candidate lowered person track initiation from 0.55 to 0.50 and replaced 30-frame retention with 2.4 seconds. On 440 later-window native-FPS frames with 4,179 publisher-labeled appearances, it gained three matches at the cost of 31 additional unmatched predictions. Recall increased by 0.07 percentage points; F1 declined by 0.27 and precision by 0.70. The user chose to retain the initial profile. This reverses the proposed tracker adjustment, not the useful class-specific detector cutoffs.
 
 | Tracked-box metric | Adopted initial profile | Rejected fourth-round candidate |
 | --- | ---: | ---: |
-| Recall | 75.21% | 75.28% |
-| F1 | 79.97% | 79.71% |
-| Precision | 85.38% | 84.68% |
-| Matched boxes | 3,143 | 3,146 |
-| Unmatched predictions | 538 | 569 |
-| Missed labeled boxes | 1,036 | 1,033 |
-| HOTA (0–100) | 57.00 | 56.90 |
-| IDF1 (0–100) | 69.16 | 68.94 |
-| ID switches | 24 | 28 |
+| Recall | 75.21% | **75.28%** |
+| F1 | **79.97%** | 79.71% |
+| Precision | **85.38%** | 84.68% |
+| Matched boxes | 3,143 | **3,146** |
+| Unmatched predictions | **538** | 569 |
+| Missed labeled boxes | 1,036 | **1,033** |
+| HOTA (0–100) | **57.00** | 56.90 |
+| IDF1 (0–100) | **69.16** | 68.94 |
+| ID switches | **24** | 28 |
 
 These are tracked person/vehicle box scores using pinned official TrackEval and published ignore rules, not doorway-crossing scores. UA-DETRAC vehicle categories are grouped. The full four-round study spans 1,760 distinct source frames and 27,263 repeated per-frame labeled appearances across MOT17-02/04/09 and UA-DETRAC MVI_20011/40152/63561, at 25/30 FPS. Later windows share cameras and actors with earlier footage; this is historical-data regression evidence, not independent new-location validation. The prior person-start 0.25 candidate was also rejected after restoring 16 roof and 29 fixture false-person boxes.
 
