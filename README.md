@@ -14,14 +14,18 @@ This project serves as a baseline for monitoring my privately owned business onc
 
 ## CPU-to-GPU processing improvement
 
-The retail workflow progressed from CPU-based detection to **GPU-accelerated inference on the Apple M1 Pro through Metal / PyTorch MPS**. The selected GPU replay processes all 12 retail clips (16,605 frames) at **30.2 FPS end to end**, including process/model startup, decoding, tracking, overlays and video writing. GPU inference is enabled with `--device mps`; decoding, tracking and encoding still involve CPU work.
+The workflow progressed from CPU-based detection to **GPU-accelerated inference on the Apple M1 Pro through Metal / PyTorch MPS**. The two saved performance tests have different input resolutions and must be read separately: **30.2 FPS applies to the smaller retail clips; approximately 24 FPS applies to native 1080p input.**
 
-| Processing stage | CPU baseline | Selected GPU workflow |
-| --- | --- | --- |
-| Detector execution | CPU | **Apple M1 Pro GPU (Metal/MPS)** |
-| Full retail replay throughput | Reliable historical timing unavailable | **30.2 FPS measured** |
+| Benchmark | Input resolution / source rate | Footage processed | Measured processing rate | Processing time | Playback delay |
+| --- | --- | --- | --- | --- | --- |
+| 12 CAVIAR retail clips | **384×288 / 25 FPS** | 16,605 frames; **11 min 4.2 sec** total | **30.2 FPS** end to end | **9 min 10.1 sec** total; approximately **19–69 sec per clip** | Faster than source playback overall; this offline run did not measure live latency or paced backlog |
+| Sustained 1080p test | **1920×1080 / 30 FPS** | 9,000 frames; **5 min** scheduled playback | **24.0 FPS** active processing | **6 min 15.4 sec** processing window; **6 min 17.1 sec** including model loading | **75.36 sec behind schedule** at the end; no frames dropped |
 
-A numerical CPU-to-GPU speedup cannot be established from the saved evidence: the earlier CPU replay used cached, batched person-only detections, while the GPU run uses frame-by-frame people/vehicle inference. On the six retail clips with saved CPU crossing results, the initial GPU replay reproduced those crossing scores. Subsequent counting improvements are reported separately below; moving computation to the GPU alone is not claimed to improve accuracy. The sustained 1080p load test reaches approximately 24 FPS and accumulates backlog at a 30 FPS arrival rate.
+The retail timing includes separate process/model startup, decoding, detection, tracking, overlays and video writing for each clip. The 1080p test repeats a 35-second MOT17-04 sequence to sustain five minutes of load; it is not five minutes of independent footage. Model loading precedes its playback schedule, so the final delay is measured against the processing window rather than total wall time.
+
+**Neither result establishes 1080p processing at 30.2 FPS or live-camera latency.** Both tests use YOLO11s with detector image size **640**: native 1080p input and output are retained, but frames are resized for inference. The small retail clips run faster than their 25 FPS playback rate overall; the 1080p test falls behind a 30 FPS stream. Camera/network/display latency is excluded. GPU inference uses `--device mps`; decoding, tracking and encoding still involve CPU work.
+
+A numerical CPU-to-GPU speedup cannot be established: reliable historical CPU elapsed timing was not saved, and the earlier CPU replay used cached, batched person-only detections rather than the GPU run's frame-by-frame people/vehicle inference. On six clips with saved CPU crossing results, the initial GPU replay reproduced those scores. Counting improvements are reported separately below.
 
 [CPU/GPU comparison provenance](docs/metrics/cpu-to-gpu.json) · [timing details](docs/performance.md)
 
@@ -47,7 +51,7 @@ Pretrained YOLO11s/640 + ByteTrack, one detector pass, Apple Metal. Crossing ref
 | Sum of absolute per-clip directional count errors | 8 | **2** |
 | Full-scene tracking HOTA / IDF1 (0–100) | 41.84 / 58.44 | 41.84 / 58.44 |
 | Full-scene ID switches | 65 | 65 |
-| End-to-end processing throughput | **30.9 FPS** | 30.2 FPS |
+| End-to-end throughput, 384×288 retail input | **30.9 FPS** | 30.2 FPS |
 
 The one-second metric matches events one-to-one by direction and timing. The three-second metric additionally requires box associations to the labeled human track ID; its wider timing tolerance explains the higher score. It is not personal identity recognition. Tracking scores are separate from counting scores: the selected counter improves crossing results without improving HOTA or IDF1. Labels may omit real background people. Throughput includes process/model startup, decoding, tracking, overlays and output writing for one sequential run; it is not a guaranteed live-camera rate.
 
@@ -167,7 +171,7 @@ Source clips and labels have already been inspected and used for development. Im
 .venv/bin/python experiments/sustained_metal.py --seconds 300
 ```
 
-The saved MOT17-04 load test processed all 9,000 scheduled frames at approximately 24 FPS, accumulating 75.36 seconds of backlog. It repeats a 35-second native-1080p sequence, with detector input resized to 640. This is local processing throughput, not camera/network latency or counting accuracy. See [timing definitions and detailed reproduction guidance](docs/performance.md).
+The saved native-1080p MOT17-04 load test processed all 9,000 scheduled frames at approximately 24 FPS: five minutes of footage took 6 min 15.4 sec of processing (6 min 17.1 sec including model loading), accumulating 75.36 seconds of backlog. It repeats a 35-second native-1080p sequence, with detector input resized to 640. This is local processing throughput, not camera/network latency or counting accuracy. See [timing definitions and detailed reproduction guidance](docs/performance.md).
 
 ## Outputs
 
